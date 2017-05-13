@@ -15,7 +15,7 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -29,7 +29,7 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTextTelefone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -52,7 +52,8 @@
             android:id="@+id/botaoCancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancelar"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="cancelar"
+            android:text="Cancelar" />
     </LinearLayout>
 </LinearLayout>

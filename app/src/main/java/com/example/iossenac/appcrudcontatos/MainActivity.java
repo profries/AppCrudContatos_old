@@ -32,8 +32,16 @@ public class MainActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String msg = listaContatos.get(position).getNome();
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        Contato contato = listaContatos.get(position);
+                        String nomeX = listaContatos.get(position).getNome();
+                        String telefoneX = listaContatos.get(position).getTelefone();
+
+                        Intent it = new Intent(MainActivity.this, CadastrarActivity.class);
+                        //it.putExtra("nome",nomeX);
+                        //it.putExtra("telefone",telefoneX);
+                        it.putExtra("contato",contato);
+
+                        startActivity(it);
                     }
                 }
         );
@@ -45,5 +53,9 @@ public class MainActivity extends AppCompatActivity {
     public void abrirFormulario(View v){
         Intent it = new Intent(this, CadastrarActivity.class);
         startActivity(it);
+    }
+
+    public void finalizar(View view){
+        finish();
     }
 }

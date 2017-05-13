@@ -1,9 +1,12 @@
 package com.example.iossenac.appcrudcontatos;
+
+import java.io.Serializable;
+
 /**
  * Created by iossenac on 13/05/17.
  */
 
-public class Contato {
+public class Contato implements Serializable{
     private String nome;
     private String telefone;
 
