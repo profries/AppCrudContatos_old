@@ -24,8 +24,6 @@ public class CadastrarActivity extends AppCompatActivity {
         Intent data = new Intent();
         data.putExtra("contato",contato);
         setResult(RESULT_OK,data);
-        Toast.makeText(this,"Cadastro realizado com sucesso!", Toast.LENGTH_SHORT)
-            .show();
         finish();
 
     }

@@ -13,8 +13,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_CADASTRO=1;
+    private static final int REQ_DETALHE=2;
+
     List<Contato> listaContatos = new ArrayList<>();
     ContatoAdapter adaptador;
+    int posicaoAlterar=-1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +39,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Contato contato = listaContatos.get(position);
-                        String nomeX = listaContatos.get(position).getNome();
-                        String telefoneX = listaContatos.get(position).getTelefone();
+                        MainActivity.this.posicaoAlterar = position;
 
-                        Intent it = new Intent(MainActivity.this, CadastrarActivity.class);
-                        startActivityForResult(it,REQ_CADASTRO);
+                        Intent it = new Intent(MainActivity.this, DetalheActivity.class);
+                        it.putExtra("contato",contato);
+                        startActivityForResult(it,REQ_DETALHE);
                     }
                 }
         );
@@ -56,6 +60,24 @@ public class MainActivity extends AppCompatActivity {
                 Contato contato = (Contato) data.getSerializableExtra("contato");
                 listaContatos.add(contato);
                 adaptador.notifyDataSetChanged();
+                Toast.makeText(this,"Cadastro realizada com sucesso!",Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+        else if(requestCode == REQ_DETALHE){
+            if(resultCode == DetalheActivity.RESULT_EDIT){
+                Contato contato = (Contato) data.getSerializableExtra("contato");
+                listaContatos.set(this.posicaoAlterar,
+                        contato);
+                adaptador.notifyDataSetChanged();
+                Toast.makeText(this,"Edicao realizada com sucesso!",Toast.LENGTH_SHORT)
+                        .show();
+            }
+            else if(resultCode == DetalheActivity.RESULT_DELETE){
+                listaContatos.remove(this.posicaoAlterar);
+                adaptador.notifyDataSetChanged();
+                Toast.makeText(this,"Exclusao realizada com sucesso!",Toast.LENGTH_SHORT)
+                        .show();
             }
         }
     }
