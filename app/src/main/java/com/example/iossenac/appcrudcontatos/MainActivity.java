@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int REQ_CADASTRO=1;
     List<Contato> listaContatos = new ArrayList<>();
+    ContatoAdapter adaptador;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         listaContatos.add(new Contato("Beatriz","99995594"));
         listaContatos.add(new Contato("Carlos Eduardo","33441122"));
 
-        ContatoAdapter adaptador = new ContatoAdapter(listaContatos,
+        adaptador = new ContatoAdapter(listaContatos,
                 this);
 
         ListView listView = (ListView) findViewById(R.id.listView);
@@ -37,11 +39,7 @@ public class MainActivity extends AppCompatActivity {
                         String telefoneX = listaContatos.get(position).getTelefone();
 
                         Intent it = new Intent(MainActivity.this, CadastrarActivity.class);
-                        //it.putExtra("nome",nomeX);
-                        //it.putExtra("telefone",telefoneX);
-                        it.putExtra("contato",contato);
-
-                        startActivity(it);
+                        startActivityForResult(it,REQ_CADASTRO);
                     }
                 }
         );
@@ -50,9 +48,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQ_CADASTRO)
+        {
+            if(resultCode == RESULT_OK){
+                Contato contato = (Contato) data.getSerializableExtra("contato");
+                listaContatos.add(contato);
+                adaptador.notifyDataSetChanged();
+            }
+        }
+    }
+
     public void abrirFormulario(View v){
-        Intent it = new Intent(this, CadastrarActivity.class);
-        startActivity(it);
+        Intent it = new Intent(MainActivity.this, CadastrarActivity.class);
+        startActivityForResult(it,REQ_CADASTRO);
+
     }
 
     public void finalizar(View view){

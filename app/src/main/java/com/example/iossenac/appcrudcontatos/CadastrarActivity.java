@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class CadastrarActivity extends AppCompatActivity {
 
@@ -13,18 +14,21 @@ public class CadastrarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar);
 
-        Intent it = this.getIntent();
-        //String nome = it.getStringExtra("nome");
-        //String telefone = it.getStringExtra("telefone");
-        Contato contato = (Contato) it.getSerializableExtra("contato");
-
-        EditText editTextNome = (EditText) findViewById(R.id.editTextNome);
-        editTextNome.setText(contato.getNome());
-
-        EditText editTextTelefone = (EditText) findViewById(R.id.editTextTelefone);
-        editTextTelefone.setText(contato.getTelefone());
     }
 
+    public void cadastrar(View v){
+        EditText editTextNome = (EditText) findViewById(R.id.editTextNome);
+        EditText editTextTelefone = (EditText) findViewById(R.id.editTextTelefone);
+        Contato contato = new Contato(editTextNome.getText().toString(),
+                editTextTelefone.getText().toString());
+        Intent data = new Intent();
+        data.putExtra("contato",contato);
+        setResult(RESULT_OK,data);
+        Toast.makeText(this,"Cadastro realizado com sucesso!", Toast.LENGTH_SHORT)
+            .show();
+        finish();
+
+    }
 
     public void cancelar(View view){
         finish();

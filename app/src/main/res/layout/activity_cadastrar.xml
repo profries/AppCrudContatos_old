@@ -45,8 +45,9 @@
             android:id="@+id/botaoCadastrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cadastrar"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="cadastrar"
+            android:text="Cadastrar" />
 
         <Button
             android:id="@+id/botaoCancelar"
